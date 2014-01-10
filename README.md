@@ -2,12 +2,13 @@ GRKBlurView
 ===========
 A UIView subclass which applies image effects to a given image.
 
-![Sample Screenshot](ReadmeAssets/ScreenShot.png)
 Image affects (blur, saturation) are applied to a base image asynchronously and is
 intended to be used for near real time application.
 
 ![Demo](ReadmeAssets/Demo.gif)  
-(please note the image quality is much better than the above gif)
+(please note the image quality is much better than the above gif, as can be seen below)
+
+![Sample Screenshot](ReadmeAssets/ScreenShot.png)
 
 #### Future Ideas
 
