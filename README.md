@@ -19,7 +19,7 @@ intended to be used for near real time application.
 
 If you're using [CocoPods](http://cocopods.org) it's as simple as adding this to your `Podfile`:
 
-	pod 'GRKBlurView', '~> 1.0'
+	pod 'GRKBlurView', '~> 1.1'
 
 ### Documentation
 
@@ -36,7 +36,6 @@ possible and performant.
 	
 		self.blurView.targetImage = [UIImage imageNamed:@"test"];
 		self.blurView.blurRadius = 30.0f;
-		[self.blurView update];
 	}
 
 Also please refer to the included GRKBlurViewTestApp for more robust examples.
