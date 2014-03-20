@@ -30,6 +30,20 @@
 
 @end
 
+@interface UIImage (Resize)
+
+/**
+ *  Resizes the reciever to the given size in points at the current device resolution.
+ *
+ *  @param size The size to scale the receiver to.
+ *
+ *  @return A new UIImage instance scaled to the given size.
+ *  @see http://stackoverflow.com/a/2658801/397210
+ */
+- (UIImage *)imageScaledToSize:(CGSize)size;
+
+@end
+
 @interface GRKBlurView : UIView
 
 /**

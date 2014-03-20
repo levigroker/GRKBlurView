@@ -23,6 +23,8 @@
 
 @property (nonatomic,strong) UIImageView *imageView;
 @property (nonatomic,strong) NSOperationQueue *updateQueue;
+@property (atomic,strong) UIImage *scaledImage;
+@property (atomic,strong) UIImage *scaledMaskImage;
 
 @end
 
@@ -63,6 +65,33 @@
     self.imageView = imageView;
 }
 
+#pragma mark - Layout
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    self.scaledImage = nil;
+    self.scaledMaskImage = nil;
+    [self update];
+}
+
+#pragma mark - Accessors
+
+- (void)setTargetImage:(UIImage *)targetImage
+{
+    _targetImage = targetImage;
+    self.scaledImage = nil;
+    [self update];
+}
+
+- (void)setMaskImage:(UIImage *)maskImage
+{
+    _maskImage = maskImage;
+    self.scaledMaskImage = nil;
+    [self update];
+}
+
 #pragma mark - API Implementation
 
 - (void)update
@@ -73,15 +102,57 @@
         //We only want one operation at a time
         [self.updateQueue setMaxConcurrentOperationCount:1];
     }
+    
     //Cancel all outstanding operations (has no effect on the currently processing operation)
     [self.updateQueue cancelAllOperations];
+    
+    //Capture needed data for our operation
+    UIImage *targetImage = self.targetImage;
+    __block UIImage *scaledImage = self.scaledImage;
+    UIImage *maskImage = self.maskImage;
+    __block UIImage *scaledMaskImage = self.scaledMaskImage;
+    CGFloat blurRadius = self.blurRadius;
+    UIColor *tintColor = self.tintColor;
+    CGFloat saturationDeltaFactor = self.saturationDeltaFactor;
+    CGSize curentSize = self.bounds.size;
+    __weak GRKBlurView *weakSelf = self;
+    
     //Add our new update operation
     [self.updateQueue addOperationWithBlock:^{
-        //Perform the effects in the operation
-        UIImage *effectImage = [self.targetImage applyBlurWithRadius:self.blurRadius tintColor:self.tintColor saturationDeltaFactor:self.saturationDeltaFactor maskImage:self.maskImage];
+        //Scale the target image to our size, as needed, rather than apply the blur to a differently sized image.
+        if (!scaledImage && targetImage)
+        {
+            CGSize targetImageSize = targetImage.size;
+            if (CGSizeEqualToSize(targetImageSize, curentSize))
+            {
+                scaledImage = targetImage;
+            }
+            else
+            {
+                scaledImage = [targetImage imageScaledToSize:curentSize];
+            }
+        }
+        //Scale the mask image to our size, as needed, rather than apply the blur to a differently sized image.
+        if (!scaledMaskImage && maskImage)
+        {
+            CGSize maskImageSize = maskImage.size;
+            if (CGSizeEqualToSize(maskImageSize, curentSize))
+            {
+                scaledMaskImage = maskImage;
+            }
+            else
+            {
+                scaledMaskImage = [maskImage imageScaledToSize:curentSize];
+            }
+        }
+        //Perform the effects
+        UIImage *effectImage = [scaledImage applyBlurWithRadius:blurRadius tintColor:tintColor saturationDeltaFactor:saturationDeltaFactor maskImage:scaledMaskImage];
         //Jump to the main quque for our UI update
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.imageView.image = effectImage;
+            _targetImage = targetImage; //Must not use property setter here, as it will cause infinite loop
+            weakSelf.scaledImage = scaledImage;
+            weakSelf.scaledMaskImage = scaledMaskImage;
+            weakSelf.imageView.image = effectImage;
         });
     }];
 }
@@ -254,6 +325,20 @@
     UIGraphicsEndImageContext();
     
     return outputImage;
+}
+
+@end
+
+@implementation UIImage (Resize)
+
+//See http://stackoverflow.com/a/2658801/397210
+- (UIImage *)imageScaledToSize:(CGSize)size
+{
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 @end
