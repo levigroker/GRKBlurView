@@ -23,6 +23,9 @@
 		08289021187DFB9A005C6400 /* GRKBlurViewTestAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 08289020187DFB9A005C6400 /* GRKBlurViewTestAppTests.m */; };
 		0828902C187DFBC8005C6400 /* GRKBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828902B187DFBC8005C6400 /* GRKBlurView.m */; };
 		0828902D187DFBC8005C6400 /* GRKBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828902B187DFBC8005C6400 /* GRKBlurView.m */; };
+		DBAC867B193651D80026A79D /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = DBAC867A193651D80026A79D /* UIView+Snapshot.m */; };
+		DBAC867E1936B66F0026A79D /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = DBAC867D1936B66F0026A79D /* UIImage+Resize.m */; };
+		DBAC86811936B7AE0026A79D /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = DBAC86801936B7AE0026A79D /* UIImage+Blur.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,12 @@
 		08289020187DFB9A005C6400 /* GRKBlurViewTestAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GRKBlurViewTestAppTests.m; sourceTree = "<group>"; };
 		0828902A187DFBC8005C6400 /* GRKBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GRKBlurView.h; path = ../../GRKBlurView/GRKBlurView.h; sourceTree = "<group>"; };
 		0828902B187DFBC8005C6400 /* GRKBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GRKBlurView.m; path = ../../GRKBlurView/GRKBlurView.m; sourceTree = "<group>"; };
+		DBAC8679193651D80026A79D /* UIView+Snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Snapshot.h"; path = "../../GRKBlurView/UIView+Snapshot.h"; sourceTree = "<group>"; };
+		DBAC867A193651D80026A79D /* UIView+Snapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Snapshot.m"; path = "../../GRKBlurView/UIView+Snapshot.m"; sourceTree = "<group>"; };
+		DBAC867C1936B66F0026A79D /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "../../GRKBlurView/UIImage+Resize.h"; sourceTree = "<group>"; };
+		DBAC867D1936B66F0026A79D /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "../../GRKBlurView/UIImage+Resize.m"; sourceTree = "<group>"; };
+		DBAC867F1936B7AE0026A79D /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Blur.h"; path = "../../GRKBlurView/UIImage+Blur.h"; sourceTree = "<group>"; };
+		DBAC86801936B7AE0026A79D /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Blur.m"; path = "../../GRKBlurView/UIImage+Blur.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +171,12 @@
 			children = (
 				0828902A187DFBC8005C6400 /* GRKBlurView.h */,
 				0828902B187DFBC8005C6400 /* GRKBlurView.m */,
+				DBAC8679193651D80026A79D /* UIView+Snapshot.h */,
+				DBAC867A193651D80026A79D /* UIView+Snapshot.m */,
+				DBAC867C1936B66F0026A79D /* UIImage+Resize.h */,
+				DBAC867D1936B66F0026A79D /* UIImage+Resize.m */,
+				DBAC867F1936B7AE0026A79D /* UIImage+Blur.h */,
+				DBAC86801936B7AE0026A79D /* UIImage+Blur.m */,
 			);
 			name = GRKBlurView;
 			path = GRKBlurViewTestApp;
@@ -266,9 +281,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0828902C187DFBC8005C6400 /* GRKBlurView.m in Sources */,
+				DBAC86811936B7AE0026A79D /* UIImage+Blur.m in Sources */,
 				0828900C187DFB9A005C6400 /* GRKViewController.m in Sources */,
+				DBAC867B193651D80026A79D /* UIView+Snapshot.m in Sources */,
 				08289002187DFB9A005C6400 /* main.m in Sources */,
 				08289006187DFB9A005C6400 /* GRKAppDelegate.m in Sources */,
+				DBAC867E1936B66F0026A79D /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +498,7 @@
 				08289026187DFB9A005C6400 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		08289027187DFB9A005C6400 /* Build configuration list for PBXNativeTarget "GRKBlurViewTestAppTests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +507,7 @@
 				08289029187DFB9A005C6400 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
