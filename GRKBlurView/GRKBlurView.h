@@ -2,7 +2,7 @@
 //  GRKBlurView.h
 //
 //  Created by Levi Brown on January 8, 2014.
-//  Copyright (c) 2013 Levi Brown <mailto:levigroker@gmail.com>
+//  Copyright (c) 2014 Levi Brown <mailto:levigroker@gmail.com>
 //  This work is licensed under the Creative Commons Attribution 3.0
 //  Unported License. To view a copy of this license, visit
 //  http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
@@ -17,38 +17,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (Blur)
-
-/*
- Taken from Apple WWDC 2013 sample code, with minor modifications by Levi Brown.
- 
- File: UIImage+ImageEffects.m
- Abstract: This is a category of UIImage that adds methods to apply blur and tint effects to an image.
- Version: 1.0
- */
-- (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor maskImage:(UIImage *)maskImage;
-
-@end
-
-@interface UIImage (Resize)
-
-/**
- *  Resizes the reciever to the given size in points at the current device resolution.
- *
- *  @param size The size to scale the receiver to.
- *
- *  @return A new UIImage instance scaled to the given size.
- *  @see http://stackoverflow.com/a/2658801/397210
- */
-- (UIImage *)imageScaledToSize:(CGSize)size;
-
-@end
-
 @interface GRKBlurView : UIView
 
 /**
  The base image to apply effects to.
- @note The `update` message needs to be sent for changes to this property to be rendered.
+ @note Setting this property will initiate an `update`.
  */
 @property (nonatomic,strong) UIImage *targetImage;
 /**
@@ -68,9 +41,18 @@
 @property (nonatomic,assign) CGFloat saturationDeltaFactor;
 /**
  An image to use as a mask to the applied affects. Can be nil (default).
- @note The `update` message needs to be sent for changes to this property to be rendered.
+ @note Setting this property will initiate an `update`.
  */
 @property (nonatomic,strong) UIImage *maskImage;
+
+/**
+ *  Grabs a snapshot of the given view, uses it as the target image, and performs an update.
+ *
+ *  @param targetView A UIView instance which will render into an image which will be set as the targetImage.
+ *  @see targetImage
+ *  @see update
+ */
+- (void)setTargetImageFromView:(UIView *)targetView;
 
 /**
  Render and apply the various effects. This will be performed asynchronously.
